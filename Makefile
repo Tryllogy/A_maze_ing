@@ -1,8 +1,9 @@
 PYTHON := python3
-PIP := pip
+PIP := $(PYTHON) -m pip
 MAIN_SCRIPT := main.py
 PROJECT_NAME := mazegen
 VENV := .venv
+FILE := 
 
 help:
 	@echo "Available commands:"
@@ -19,16 +20,14 @@ help:
 
 install:
 	$(PIP) install --upgrade pip setuptools wheel || true
-	# Try installing requirements from dependencies/, but don't abort on failure
 	$(PIP) install -r dependencies/requirements.txt || echo "Warning: some packages from dependencies/requirements.txt failed to install"
-	# Install any local wheels present (no-op if none)
 	$(PIP) install dependencies/*.whl || echo "No local .whl files found in dependencies/"
 
 run:
-	$(PYTHON) $(MAIN_SCRIPT)
+	$(PYTHON) $(MAIN_SCRIPT) $(FILE)
 
 debug:
-	$(PYTHON) -m pdb $(MAIN_SCRIPT)
+	$(PYTHON) -m pdb $(MAIN_SCRIPT) $(FILE)
 
 clean:
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
@@ -52,13 +51,17 @@ lint-strict:
 	mypy . --strict --exclude='(build|dist|venv|env|test_vm|dependencies|src)'
 
 build: clean
-	$(PYTHON) -m pip install --upgrade build setuptools wheel
+	$(PYTHON) -m pip install --upgrade build setuptools wheel 2>/dev/null || { \
+		echo "pip not available for $(PYTHON), attempting to bootstrap..."; \
+		$(PYTHON) -m ensurepip --upgrade >/dev/null 2>&1 || curl -sS https://bootstrap.pypa.io/get-pip.py | $(PYTHON); \
+		$(PYTHON) -m pip install --upgrade build setuptools wheel; \
+	}
 	$(PYTHON) -m build
 
 setup:
 	@rm -rf $(VENV) 2>/dev/null || true
-	$(PYTHON) -m venv $(VENV) --without-pip
-	curl -sS https://bootstrap.pypa.io/get-pip.py | $(VENV)/bin/python
+	$(PYTHON) -m venv $(VENV)
+	$(VENV)/bin/python -m pip --version >/dev/null 2>&1 || curl -sS https://bootstrap.pypa.io/get-pip.py | $(VENV)/bin/python
 	$(VENV)/bin/pip install --upgrade pip setuptools wheel build
 	@echo ""
 	@echo "Virtual environment created in $(VENV)/"
