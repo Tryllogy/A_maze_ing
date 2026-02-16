@@ -77,12 +77,12 @@ Quick start (development)
 MazeGenerator expects a mapping with the following keys (txt/JSON/TOML/Dict representation shown):
 
 ```
-  "WIDTH": 15,
-  "HEIGHT": 11,
-  "ENTRY": [0, 0],
-  "EXIT": [10, 14],
-  "PERFECT": true,
-  "OUTPUT_FILE": "maze.map"
+  WIDTH=15
+  HEIGHT=11
+  ENTRY=0,0
+  EXIT=10,14
+  PERFECT=true
+  OUTPUT_FILE=maze.map
 ```
 
 Fields:
@@ -152,8 +152,8 @@ from mazegen import MazeGenerator
 cfg = {
   "WIDTH": 21,
   "HEIGHT": 11,
-  "ENTRY": [0, 0],
-  "EXIT": [10, 20],
+  "ENTRY": (0, 0),
+  "EXIT": (10, 20),
   "PERFECT": True,
   "OUTPUT_FILE": "out.map"
 }
@@ -171,8 +171,8 @@ from mazegen import MazeGenerator
 cfg = {
   "WIDTH": 31,           # Custom width
   "HEIGHT": 21,          # Custom height
-  "ENTRY": [0, 0],
-  "EXIT": [20, 30],
+  "ENTRY": (0, 0),
+  "EXIT": (20, 30),
   "PERFECT": False,      # Allow loops
   "OUTPUT_FILE": "custom.map",
 }
