@@ -74,18 +74,15 @@ Quick start (development)
 
 ## Config file format (complete structure)
 
-MazeGenerator expects a mapping with the following keys (JSON/TOML/Dict representation shown):
+MazeGenerator expects a mapping with the following keys (txt/JSON/TOML/Dict representation shown):
 
-```JSON
-JSON example:
-{
+```
   "WIDTH": 15,
   "HEIGHT": 11,
   "ENTRY": [0, 0],
   "EXIT": [10, 14],
   "PERFECT": true,
   "OUTPUT_FILE": "maze.map"
-}
 ```
 
 Fields:
