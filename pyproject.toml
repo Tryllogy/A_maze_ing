@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [
-    {name = "tchemin", email = "tchemin@example.com"}
+    {name = "Thomas CHEMIN", email = "bbstryllogy@gmail.com"}
 ]
 keywords = ["maze", "generator", "solver", "visualization", "mlx"]
 classifiers = [

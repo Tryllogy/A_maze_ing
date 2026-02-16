@@ -296,7 +296,6 @@ class MazeRepresentation:
 
     @clear_window
     @regenerate_img
-    @put_img_to_window
     def new_maze(self) -> None:
         """Generate and display a new maze."""
         self.maze_gen.path = []
